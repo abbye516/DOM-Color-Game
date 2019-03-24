@@ -16,6 +16,8 @@ easyBtn.addEventListener("click", function () {
     numSquares = 3
     colors = generateRandomColors(numSquares);
     pickedColor = pickColor();
+    colorDisplay.textContent = pickedColor;
+
     for (let i = 0; i < squares.length; i++) {
         if (colors[i]) {
             squares[i].style.background = colors[i]
@@ -24,15 +26,14 @@ easyBtn.addEventListener("click", function () {
             squares[i].style.display = 'none'
         }
     }
-    h1.style.backgroundColor = "#232323"
-
-
+    h1.style.backgroundColor = "steelblue"
+    messageDisplay.textContent = ""
 })
 
 hardBtn.addEventListener("click", function () {
     hardBtn.classList.add("selected")
     easyBtn.classList.remove("selected")
-    // h1.style.backgroundColor = "#232323"
+    // h1.style.backgroundColor = "steelblue"
     numSquares = 6;
     colors = generateRandomColors(numSquares)
     pickedColor = pickColor()
@@ -42,18 +43,23 @@ hardBtn.addEventListener("click", function () {
         squares[i].style.background = colors[i]
         squares[i].style.display = 'block'
     }
-    h1.style.backgroundColor = "#232323"
+    h1.style.backgroundColor = "steelblue"
+    messageDisplay.textContent = ""
 
 })
 
 resetButton.addEventListener('click', function () {
     colors = generateRandomColors(numSquares)
-    pickColor = pickColor()
-    colorDisplay.textContent = pickColor;
+    pickedColor = pickColor()
+    colorDisplay.textContent = pickedColor;
     for (let i = 0; i < squares.length; i++) {
         squares[i].style.background = colors[i]
     }
-    h1.style.backgroundColor = "#232323"
+    h1.style.backgroundColor = "steelblue"
+    messageDisplay.textContent = ""
+    this.textContent = "New colors"
+
+
 })
 
 colorDisplay.textContent = pickedColor;
@@ -77,7 +83,7 @@ for (let i = 0; i < squares.length; i++) {
             resetButton.textContent = "play again?"
         }
         else {
-            alert(squares[i].style.backgroundColor)
+            // alert(squares[i].style.backgroundColor)
             this.style.backgroundColor = "#232323";
             messageDisplay.textContent = "guess again"
         }
