@@ -2,62 +2,74 @@
 let numSquares = 6
 let colors = generateRandomColors(numSquares);
 let squares = document.querySelectorAll(".square")
-let colorDisplay = document.querySelector("#colorDisplay");
+let pickedColor = pickColor();
+var colorDisplay = document.getElementById("colorDisplay");
 let messageDisplay = document.querySelector("#message");
-let h1 = document.querySelector('h1')
+let h1 = document.querySelector('h1');
 let resetButton = document.querySelector('#reset');
-let pickedColor = colorChooser();
 let easyBtn = document.getElementById("easyBtn");
 let hardBtn = document.getElementById("hardBtn");
 
-easyBtn.addEventListener("click", function(){
+easyBtn.addEventListener("click", function () {
     easyBtn.classList.add("selected")
     hardBtn.classList.remove('selected')
-    let numSquares = 3
-    colors = generateRandomColors(numSquares)
-     colorChooser()
-    // alert(pickedColor)
+    numSquares = 3
+    colors = generateRandomColors(numSquares);
+    pickedColor = pickColor();
     for (let i = 0; i < squares.length; i++) {
-        if(colors[i]){
+        if (colors[i]) {
             squares[i].style.background = colors[i]
         }
-        else{
+        else {
             squares[i].style.display = 'none'
         }
     }
-    
+    h1.style.backgroundColor = "#232323"
+
 
 })
 
-hardBtn.addEventListener("click", function(){
+hardBtn.addEventListener("click", function () {
     hardBtn.classList.add("selected")
     easyBtn.classList.remove("selected")
-    let numSquares = 6;
+    // h1.style.backgroundColor = "#232323"
+    numSquares = 6;
     colors = generateRandomColors(numSquares)
-     colorChooser()
+    pickedColor = pickColor()
+    colorDisplay.textContent = pickedColor;
     // alert(pickedColor)
     for (let i = 0; i < squares.length; i++) {
-            squares[i].style.background = colors[i]
-            squares[i].style.display = 'block'
-            }
+        squares[i].style.background = colors[i]
+        squares[i].style.display = 'block'
+    }
+    h1.style.backgroundColor = "#232323"
 
 })
 
+resetButton.addEventListener('click', function () {
+    colors = generateRandomColors(numSquares)
+    pickColor = pickColor()
+    colorDisplay.textContent = pickColor;
+    for (let i = 0; i < squares.length; i++) {
+        squares[i].style.background = colors[i]
+    }
+    h1.style.backgroundColor = "#232323"
+})
 
-function colorChooser() {
-    let random = colors[Math.floor(Math.random() * colors.length)];
-    colorDisplay.textContent = random
-    return random
+colorDisplay.textContent = pickedColor;
+
+
+function pickColor() {
+    let random = Math.floor(Math.random() * colors.length);
+    // colorDisplay.textContent = random
+    return colors[random]
 }
-colorChooser()
 
 for (let i = 0; i < squares.length; i++) {
-    //add initial colors to squares
     squares[i].style.backgroundColor = colors[i]
-    //add clicked listeners
     squares[i].addEventListener("click", function () {
         let clickedColor = this.style.backgroundColor
-        if (clickedColor === colorDisplay.textContent) {
+        if (clickedColor === pickedColor) {
             alert('you won')
             changeColor(clickedColor)
             messageDisplay.textContent = "Correct, you won!"
@@ -65,7 +77,7 @@ for (let i = 0; i < squares.length; i++) {
             resetButton.textContent = "play again?"
         }
         else {
-            alert('wrong')
+            alert(squares[i].style.backgroundColor)
             this.style.backgroundColor = "#232323";
             messageDisplay.textContent = "guess again"
         }
@@ -92,15 +104,7 @@ function randomColor() {
     let g = Math.floor(Math.random() * 256);
     let b = Math.floor(Math.random() * 256);
 
-    return `RGB(${r}, ${g}, ${b})`
+    return `rgb(${r}, ${g}, ${b})`
 }
 
 
-resetButton.addEventListener('click', function () {
-    colors = generateRandomColors(numSquares)
-    colorChooser()
-    for (let i = 0; i < squares.length; i++) {
-        squares[i].style.background = colors[i]
-    }
-    h1.style.backgroundColor = "#232323"
-})
